@@ -24,6 +24,7 @@ import {
   SmileOutlined,
   TeamOutlined,
   VideoCameraOutlined,
+  PaperClipOutlined,
 } from './icons';
 import {
   BASE_URL,
@@ -315,6 +316,13 @@ const Dashboard = (props: RouteComponentProps) => {
                 title={`Inbox (${totalNumUnread})`}
               >
                 <Link to="/conversations/all">Inbox ({totalNumUnread})</Link>
+              </Menu.Item>
+              <Menu.Item
+                key="chat-bot"
+                icon={<PaperClipOutlined />}
+                title={`Inbox (${totalNumUnread})`}
+              >
+                <Link to="/conversations/chat-bot">Chatbot</Link>
               </Menu.Item>
 
               {isAdminUser && (
