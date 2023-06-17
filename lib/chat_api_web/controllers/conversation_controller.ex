@@ -1,6 +1,7 @@
 defmodule ChatApiWeb.ConversationController do
   use ChatApiWeb, :controller
   use PhoenixSwagger
+  require Logger
 
   alias ChatApi.{Conversations, Inboxes, Messages}
   alias ChatApi.Conversations.{Conversation, Helpers}
@@ -414,14 +415,15 @@ defmodule ChatApiWeb.ConversationController do
              "conversation_id" => conversation_id
            })
            |> Messages.create_message() do
-      Messages.get_message!(msg.id)
-      |> Messages.Notification.broadcast_to_customer!()
-      |> Messages.Notification.broadcast_to_admin!()
-      |> Messages.Notification.notify(:slack)
-      |> Messages.Notification.notify(:mattermost)
-      |> Messages.Notification.notify(:webhooks)
-      |> Messages.Notification.notify(:push)
-
+      with message <- Messages.get_message!(msg.id) do
+        message
+        |> Messages.Notification.broadcast_to_customer!()
+        |> Messages.Notification.broadcast_to_admin!()
+        |> Messages.Notification.notify(:slack)
+        |> Messages.Notification.notify(:mattermost)
+        |> Messages.Notification.notify(:webhooks)
+        |> Messages.Notification.notify(:push)
+      end
       :ok
     end
   end
