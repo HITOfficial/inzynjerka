@@ -12,5 +12,7 @@ defmodule ChatApi.Chatbot do
     else
       {:error, :confidence_too_low}
     end
+    request = %HTTPoison.Request{url: "localhost:8080/chatbot", method: :post, headers: [{"Content-Type", "application/json"}]}
+    HTTPoison.Request.to_curl(request)
   end
 end
