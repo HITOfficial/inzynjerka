@@ -22,6 +22,7 @@ services:
       REACT_APP_FILE_UPLOADS_ENABLED: 1
       # Replace with your domain name
       REACT_APP_URL: "localhost:4000"
+    network_mode: host
   db:
     image: postgres:alpine
     restart: unless-stopped
