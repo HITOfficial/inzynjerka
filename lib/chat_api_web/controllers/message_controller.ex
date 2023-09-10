@@ -1,6 +1,7 @@
 defmodule ChatApiWeb.MessageController do
   use ChatApiWeb, :controller
   use PhoenixSwagger
+  require Logger
 
   alias ChatApi.Messages
   alias ChatApi.Messages.Message

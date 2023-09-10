@@ -60,7 +60,7 @@ defmodule ChatApi.MixProject do
       {:gettext, "~> 0.11"},
       {:tesla, "~> 1.3"},
       {:hackney, "~> 1.17"},
-      {:jason, "~> 1.0"},
+      {:jason, "~> 1.4"},
       {:joken, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:corsica, "~> 1.0"},
@@ -85,7 +85,8 @@ defmodule ChatApi.MixProject do
       {:sweet_xml, "~> 0.7.1"},
       # TODO: just copy code over?
       {:exponent_server_sdk, "~> 0.2.0"},
-      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:httpoison, "~> 1.8.0"}
     ]
   end
 

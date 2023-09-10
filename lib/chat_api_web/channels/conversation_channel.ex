@@ -90,8 +90,12 @@ defmodule ChatApiWeb.ConversationChannel do
       end
 
       message = Messages.get_message!(message.id)
-
-      broadcast_new_message(socket, message)
+      case ChatApi.Messages.Helpers.handle_user_question(message) do
+        {:ok, auto_response} ->
+          broadcast_new_message_to_client(auto_response)
+        _ ->
+          broadcast_new_message(socket, message)
+      end
     else
       _ ->
         broadcast(socket, "shout", payload)
@@ -108,6 +112,24 @@ defmodule ChatApiWeb.ConversationChannel do
     end
 
     {:noreply, socket}
+  end
+
+  defp broadcast_new_message_to_client(message) do
+    message
+    |> Messages.Notification.broadcast_to_customer!()
+    |> Messages.Notification.broadcast_to_admin!()
+    |> Messages.Notification.notify(:slack)
+    |> Messages.Notification.notify(:slack_support_channel)
+    |> Messages.Notification.notify(:slack_company_channel)
+    |> Messages.Notification.notify(:mattermost)
+    |> Messages.Notification.notify(:webhooks)
+    |> Messages.Notification.notify(:push)
+    |> Messages.Notification.notify(:new_message_email)
+    |> Messages.Notification.notify(:conversation_reply_email)
+    |> Messages.Notification.notify(:gmail)
+    |> Messages.Notification.notify(:sms)
+    |> Messages.Notification.notify(:ses)
+    |> Messages.Helpers.handle_post_creation_hooks()
   end
 
   @spec broadcast_new_message(any(), Message.t()) :: Message.t()

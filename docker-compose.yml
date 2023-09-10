@@ -5,7 +5,7 @@ services:
     build:
         context: .
         dockerfile: dev.Dockerfile
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
       - "4000:4000"
@@ -22,9 +22,10 @@ services:
       REACT_APP_FILE_UPLOADS_ENABLED: 1
       # Replace with your domain name
       REACT_APP_URL: "localhost:4000"
+    network_mode: host
   db:
     image: postgres:alpine
-    restart: always
+    restart: unless-stopped
     container_name: papercups
     ports:
       - "5432:5432"
