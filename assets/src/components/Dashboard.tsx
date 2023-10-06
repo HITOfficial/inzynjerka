@@ -25,6 +25,7 @@ import {
   TeamOutlined,
   VideoCameraOutlined,
   PaperClipOutlined,
+  DatabaseOutlined,
 } from './icons';
 import {
   BASE_URL,
@@ -36,6 +37,7 @@ import {
 } from '../config';
 import {SOCKET_URL} from '../socket';
 import analytics from '../analytics';
+
 import {
   DASHBOARD_COLLAPSED_SIDER_WIDTH,
   formatUserExternalId,
@@ -94,6 +96,7 @@ import LambdasOverview from './lambdas/LambdasOverview';
 import CannedResponsesOverview from './canned-responses/CannedResponsesOverview';
 import ForwardingAddressSettings from './settings/ForwardingAddressSettings';
 import InboxesDashboard from './inboxes/InboxesDashboard';
+import QAndAPage from './q-and-a/QAndAPage';
 
 const {
   REACT_APP_ADMIN_ACCOUNT_ID = 'eb504736-0f20-4978-98ff-1a82ae60b266',
@@ -400,6 +403,16 @@ const Dashboard = (props: RouteComponentProps) => {
                 </Menu.SubMenu>
               )}
 
+              {isAdminUser && (
+                <Menu.Item
+                  title="q-and-a"
+                  icon={<DatabaseOutlined />}
+                  key="q-and-a"
+                >
+                  <Link to="/q-and-a">Q&A</Link>
+                </Menu.Item>
+              )}
+
               {isAdminUser ? (
                 <Menu.SubMenu
                   key="settings"
@@ -489,7 +502,6 @@ const Dashboard = (props: RouteComponentProps) => {
           <Redirect from="/account*" to="/settings*" />
           <Redirect from="/billing" to="/settings/billing" />
           <Redirect from="/saved-replies" to="/settings/saved-replies" />
-
           <Route path="/settings/account" component={AccountOverview} />
           <Route path="/settings/team" component={TeamOverview} />
           <Route path="/settings/profile" component={UserProfile} />
@@ -572,6 +584,7 @@ const Dashboard = (props: RouteComponentProps) => {
             path="/developers/_templates"
             component={EmailTemplateBuilder}
           />
+          <Route path="/q-and-a" component={QAndAPage} />
           <Route path="/functions/:id" component={LambdaDetailsPage} />
           <Route path="/functions" component={LambdasOverview} />
           <Route path="/reporting" component={ReportingDashboard} />
