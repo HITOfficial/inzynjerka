@@ -1,5 +1,6 @@
 defmodule ChatApiWeb.UserController do
   use ChatApiWeb, :controller
+  alias Hex.API.User
   alias ChatApi.Users
   alias ChatApi.Users.User
   require Logger
@@ -129,6 +130,14 @@ defmodule ChatApiWeb.UserController do
     conn
     |> put_status(400)
     |> json(%{error: %{status: 400, message: "Role must be either 'user' or 'admin'"}})
+  end
+
+  def get_role(conn) do
+    with %{user_id: user_id, account_id: account_id} <- conn.assigns.current_user,
+    role <- User.get_user_role(user_id, account_id)
+    do
+      render(conn, "role.json", role: role)
+    end
   end
 
   @spec delete(Plug.Conn.t(), map) :: Plug.Conn.t()

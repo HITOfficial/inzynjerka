@@ -281,6 +281,13 @@ defmodule ChatApi.Users do
     |> Repo.update()
   end
 
+  def get_user_role(user_id, account_id) do
+    find_by_id(user_id, account_id) |> case do
+      nil -> :unknown
+      user -> user |> Map.fetch(:role)
+    end
+  end
+
   @spec delete_user_settings(UserSettings.t()) ::
           {:ok, UserSettings.t()} | {:error, Ecto.Changeset.t()}
   def delete_user_settings(%UserSettings{} = user_settings) do
