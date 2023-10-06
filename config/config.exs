@@ -3,7 +3,8 @@ use Mix.Config
 config :chat_api,
   environment: Mix.env(),
   ecto_repos: [ChatApi.Repo],
-  generators: [binary_id: true]
+  generators: [binary_id: true],
+  service_secret: "BIG_SECRET"
 
 config :chat_api, ChatApi.Repo, migration_timestamps: [type: :utc_datetime_usec]
 

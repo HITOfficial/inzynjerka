@@ -40,4 +40,8 @@ defmodule ChatApiWeb.UserView do
         }
     end
   end
+
+  def render("role.json", %{role: role}) do
+    %{role: role}
+  end
 end
