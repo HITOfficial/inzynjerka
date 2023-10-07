@@ -93,6 +93,8 @@ defmodule ChatApiWeb.ConversationChannel do
       case ChatApi.Messages.Helpers.handle_user_question(message) do
         {:ok, auto_response} ->
           broadcast_new_message_to_client(auto_response)
+        {:low_confidence, auto_response} -> broadcast_new_message_to_client(auto_response)
+                                   broadcast_new_message(socket, message)
         _ ->
           broadcast_new_message(socket, message)
       end

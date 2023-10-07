@@ -221,32 +221,33 @@ defmodule ChatApi.Messages.Helpers do
     )
   end
 
-  @spec handle_user_question(Message.t()) :: {:ok, Message.t()} | {:error, any()}
+  @spec handle_user_question(Message.t()) :: {:ok, Message.t()} | {:low_confidence, Message.t()} | {:error, any()}
   def handle_user_question(%Message{ body: body,
     conversation_id: conversation_id,
     account_id: account_id } = client_question) do
-    case ChatApi.Chatbot.get_chatbot_response(%{
+    result = ChatApi.Chatbot.get_chatbot_response(%{
       body: body,
       conversation_id: conversation_id,
       account_id: account_id
-    }) do
-      {:ok, body} ->
-        result = %{ body: body }
-        |> Map.merge(%{
-          type: "bot",
-          private: false,
-          conversation_id: conversation_id,
-          account_id: account_id,
-          user_id: client_question.user_id,
-          sent_at: DateTime.utc_now()
-        })
-        |> Messages.create_and_fetch!()
-
-        {:ok, result}
-
-      {:error, _} ->
-        {:error, nil}
+    })
+    message = if result["answer"] != nil do
+      %{ body: result["answer"] } |> Map.merge(%{
+        type: "bot",
+        private: false,
+        conversation_id: conversation_id,
+        account_id: account_id,
+        user_id: client_question.user_id,
+        sent_at: DateTime.utc_now()
+      }) |> Messages.create_and_fetch!()
+    else
+      nil
     end
+    if result["send_to_human"] do
+      case message do
+        nil -> {:error, nil}
+        _ -> {:low_confidence, message}
+      end
+     end
   end
 
 end
