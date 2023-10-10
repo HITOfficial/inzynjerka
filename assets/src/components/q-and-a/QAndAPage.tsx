@@ -1,10 +1,26 @@
-import React, {useRef} from 'react';
-
+import React, {useEffect, useRef} from 'react';
 import {Box} from 'theme-ui';
 
 const QAndAPage: React.FC = () => {
-  // Create a ref to the iframe element
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    const sendAccessTokenToIframe = () => {
+      if (iframeRef.current) {
+        const iframeContentWindow = iframeRef.current.contentWindow;
+
+        if (iframeContentWindow) {
+          const accessToken = window.localStorage.getItem('accessToken');
+          if (accessToken) {
+            iframeContentWindow.postMessage({token: accessToken}, '*');
+          }
+        }
+      }
+    };
+
+    sendAccessTokenToIframe();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -14,10 +30,10 @@ const QAndAPage: React.FC = () => {
     >
       <iframe
         ref={iframeRef}
-        src="https://home.agh.edu.pl/~boryczko/"
+        src="http://localhost:8080/model_settings"
         width="100%"
         height="100%"
-        title="Test Iframe"
+        title="Model Iframe"
       ></iframe>
     </Box>
   );
