@@ -12,7 +12,10 @@ const QAndAPage: React.FC = () => {
         if (iframeContentWindow) {
           const accessToken = window.localStorage.getItem('accessToken');
           if (accessToken) {
-            iframeContentWindow.postMessage({token: accessToken}, '*');
+            console.log(accessToken);
+            setTimeout(() => {
+              iframeContentWindow.postMessage({token: accessToken}, '*');
+            }, 1000);
           }
         }
       }
