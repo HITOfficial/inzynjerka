@@ -20,6 +20,10 @@ defmodule ChatApiWeb.Router do
     plug(ChatApiWeb.EnsureUserEnabledPlug)
   end
 
+  pipeline :api_secret_protected do
+    plug(ChatApiWeb.EnsureSecretPlug)
+  end
+
   pipeline :public_api do
     plug(ChatApiWeb.IPAddressPlug)
     plug(:accepts, ["json"])
@@ -29,6 +33,12 @@ defmodule ChatApiWeb.Router do
   # Swagger
   scope "/api/swagger" do
     forward("/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :chat_api, swagger_file: "swagger.json")
+  end
+
+  scope "/service", ChatApiWeb do
+    pipe_through(:api_secret_protected)
+
+    get("/user/role", UserController, :get_role)
   end
 
   # Public routes
