@@ -1,28 +1,20 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {Box} from 'theme-ui';
 
 const QAndAPage: React.FC = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  useEffect(() => {
-    const sendAccessTokenToIframe = () => {
-      if (iframeRef.current) {
-        const iframeContentWindow = iframeRef.current.contentWindow;
+  const getAccessToken = () => {
+    if (iframeRef.current) {
+      const iframeContentWindow = iframeRef.current.contentWindow;
 
-        if (iframeContentWindow) {
-          const accessToken = window.localStorage.getItem('accessToken');
-          if (accessToken) {
-            console.log(accessToken);
-            setTimeout(() => {
-              iframeContentWindow.postMessage({token: accessToken}, '*');
-            }, 1000);
-          }
-        }
+      if (iframeContentWindow) {
+        const accessToken = window.localStorage.getItem('accessToken');
+        return accessToken;
       }
-    };
-
-    sendAccessTokenToIframe();
-  }, []);
+    }
+    return '';
+  };
 
   return (
     <Box
@@ -33,7 +25,7 @@ const QAndAPage: React.FC = () => {
     >
       <iframe
         ref={iframeRef}
-        src="http://localhost:8080/model_settings"
+        src={`http://localhost:8080/model_settings?token=${getAccessToken()}`}
         width="100%"
         height="100%"
         title="Model Iframe"
