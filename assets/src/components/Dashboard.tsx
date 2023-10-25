@@ -10,7 +10,6 @@ import {
 import {Helmet} from 'react-helmet';
 import {Box, Flex} from 'theme-ui';
 import {ChatWidget, Papercups} from '@papercups-io/chat-widget';
-// import {Storytime} from '../lib/storytime'; // For testing
 import {Storytime} from '@papercups-io/storytime';
 import {colors, Layout, Menu, Sider} from './common';
 import {
@@ -37,6 +36,7 @@ import {
 } from '../config';
 import {SOCKET_URL} from '../socket';
 import analytics from '../analytics';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 import {
   DASHBOARD_COLLAPSED_SIDER_WIDTH,
@@ -96,7 +96,7 @@ import LambdasOverview from './lambdas/LambdasOverview';
 import CannedResponsesOverview from './canned-responses/CannedResponsesOverview';
 import ForwardingAddressSettings from './settings/ForwardingAddressSettings';
 import InboxesDashboard from './inboxes/InboxesDashboard';
-import QAndAPage from './q-and-a/QAndAPage';
+import Model from './model/Model';
 
 const {
   REACT_APP_ADMIN_ACCOUNT_ID = 'eb504736-0f20-4978-98ff-1a82ae60b266',
@@ -404,13 +404,18 @@ const Dashboard = (props: RouteComponentProps) => {
               )}
 
               {isAdminUser && (
-                <Menu.Item
-                  title="q-and-a"
+                <Menu.SubMenu
+                  title="Model"
                   icon={<DatabaseOutlined />}
-                  key="q-and-a"
+                  key="model"
                 >
-                  <Link to="/q-and-a">Q&A</Link>
-                </Menu.Item>
+                  <Menu.Item key="modelsettings">
+                    <Link to="/model/model-settings">Model Settings</Link>
+                  </Menu.Item>
+                  <Menu.Item key="q-and-a">
+                    <Link to="/model/q-and-a">Questions</Link>
+                  </Menu.Item>
+                </Menu.SubMenu>
               )}
 
               {isAdminUser ? (
@@ -584,7 +589,10 @@ const Dashboard = (props: RouteComponentProps) => {
             path="/developers/_templates"
             component={EmailTemplateBuilder}
           />
-          <Route path="/q-and-a" component={QAndAPage} />
+          <Router>
+            <Route path="/model" component={Model} />
+          </Router>
+
           <Route path="/functions/:id" component={LambdaDetailsPage} />
           <Route path="/functions" component={LambdasOverview} />
           <Route path="/reporting" component={ReportingDashboard} />
