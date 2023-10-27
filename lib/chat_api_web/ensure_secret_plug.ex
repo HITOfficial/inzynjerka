@@ -9,9 +9,12 @@ defmodule ChatApiWeb.EnsureSecretPlug do
 
   def init(default), do: default
   def call(conn, _default) do
-    sent_secret = Conn.get_req_header(conn, "authorization")
+    [sent_secret] = Conn.get_req_header(conn, "secret")
     secret = Application.get_env(:chat_api, :service_secret)
-
+    IO.inspect "TESTTEST"
+    IO.inspect sent_secret
+    IO.inspect secret
+    IO.inspect conn
     case secret do
       nil ->
         conn

@@ -109,8 +109,10 @@ defmodule ChatApiWeb.APIAuthPlug do
 
   defp fetch_auth_token(conn, config) do
     # TODO: if token isn't verified, check personal API keys?
+
+    IO.inspect Conn.get_req_header(conn, "authorization")
     with [token | _rest] <- Conn.get_req_header(conn, "authorization"),
-         {:ok, token} <- Plug.verify_token(conn, signing_salt(), token, config) do
+    {:ok, token} <- Plug.verify_token(conn, signing_salt(), token, config) do
       token
     else
       _any -> nil

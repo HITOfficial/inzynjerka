@@ -13,10 +13,12 @@ export const MODEL_URL = 'http://localhost:8080';
 export const getAccessToken = (iframeRef: any) => {
   if (iframeRef.current) {
     const iframeContentWindow = iframeRef.current.contentWindow;
-
     if (iframeContentWindow) {
-      const accessToken = window.localStorage.getItem('accessToken');
-      return accessToken;
+      const accessToken = window.localStorage.getItem(
+        '__PAPERCUPS____AUTH_TOKENS__'
+      );
+      const token = JSON.parse(accessToken || '{}');
+      return token.token;
     }
   }
   return '';

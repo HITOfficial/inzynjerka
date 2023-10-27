@@ -132,7 +132,7 @@ defmodule ChatApiWeb.UserController do
     |> json(%{error: %{status: 400, message: "Role must be either 'user' or 'admin'"}})
   end
 
-  def get_role(conn) do
+  def get_role(conn, _params) do
     with %{user_id: user_id, account_id: account_id} <- conn.assigns.current_user,
     role <- User.get_user_role(user_id, account_id)
     do

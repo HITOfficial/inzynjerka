@@ -22,6 +22,7 @@ defmodule ChatApiWeb.Router do
 
   pipeline :api_secret_protected do
     plug(ChatApiWeb.EnsureSecretPlug)
+    plug(ChatApiWeb.APIAuthPlug, otp_app: :chat_api)
   end
 
   pipeline :public_api do
@@ -38,7 +39,7 @@ defmodule ChatApiWeb.Router do
   scope "/service", ChatApiWeb do
     pipe_through(:api_secret_protected)
 
-    get("/user/role", UserController, :get_role)
+    post("/user/role", UserController, :get_role)
   end
 
   # Public routes
