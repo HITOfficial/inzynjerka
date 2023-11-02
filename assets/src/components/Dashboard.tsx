@@ -36,7 +36,6 @@ import {
 } from '../config';
 import {SOCKET_URL} from '../socket';
 import analytics from '../analytics';
-import {BrowserRouter as Router} from 'react-router-dom';
 
 import {
   DASHBOARD_COLLAPSED_SIDER_WIDTH,
@@ -589,9 +588,7 @@ const Dashboard = (props: RouteComponentProps) => {
             path="/developers/_templates"
             component={EmailTemplateBuilder}
           />
-          <Router>
-            <Route path="/model" component={Model} />
-          </Router>
+          <Route path="/model" component={Model} />
 
           <Route path="/functions/:id" component={LambdaDetailsPage} />
           <Route path="/functions" component={LambdasOverview} />
