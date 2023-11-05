@@ -10,8 +10,7 @@ defmodule ChatApi.Chatbot do
     case response do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         response = Jason.decode!(body)
-        %{"data" => data} = response
-        {:ok, data["response"]}
+        {:ok, response["answer"]}
       {:ok, %HTTPoison.Response{status_code: 404}} -> {:error, :not_found}
       {:error, %HTTPoison.Error{reason: reason}} -> {:error, reason}
     end
