@@ -7,7 +7,7 @@ const QAndAPage: React.FC = () => {
   return (
     <iframe
       ref={iframeRef}
-      src={`${MODEL_URL}/questions?token=${getAccessToken(iframeRef)}`}
+      src={`${MODEL_URL}?token=${getAccessToken(iframeRef)}&redirect=questions`}
       width="100%"
       height="100%"
       title="Model Iframe"

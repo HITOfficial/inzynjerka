@@ -7,7 +7,7 @@ const ModelSettings: React.FC = () => {
   return (
     <iframe
       ref={iframeRef}
-      src={`${MODEL_URL}/model_settings?token=${getAccessToken(iframeRef)}`}
+      src={`${MODEL_URL}?token=${getAccessToken(iframeRef)}&redirect=model_settings`}
       width="100%"
       height="100%"
       title="Model Iframe"
