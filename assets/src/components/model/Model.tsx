@@ -8,6 +8,7 @@ import {
 import ModelSettings from './model-settings/ModelSettings';
 import QAndAPage from './q-and-a/QAndAPage';
 import {Box} from 'theme-ui';
+import QuestionStatistics from "./question-statistics/QuestionStatistics";
 
 export const MODEL_URL = 'http://localhost:8080';
 export const getAccessToken = (iframeRef: any) => {
@@ -38,6 +39,7 @@ const Model = () => {
         <Switch>
           <Route path={`${path}/model-settings`} component={ModelSettings} />
           <Route path={`${path}/q-and-a`} component={QAndAPage} />
+          <Route path={`${path}/question-statistics`} component={QuestionStatistics} />
         </Switch>
       </Router>
     </Box>

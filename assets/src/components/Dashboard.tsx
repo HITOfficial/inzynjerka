@@ -408,11 +408,14 @@ const Dashboard = (props: RouteComponentProps) => {
                   icon={<DatabaseOutlined />}
                   key="model"
                 >
-                  <Menu.Item key="modelsettings">
+                  <Menu.Item key="model-settings">
                     <Link to="/model/model-settings">Model Settings</Link>
                   </Menu.Item>
                   <Menu.Item key="q-and-a">
                     <Link to="/model/q-and-a">Questions</Link>
+                  </Menu.Item>
+                  <Menu.Item key="question-statistics">
+                    <Link to="/model/question-statistics">Question Statistics</Link>
                   </Menu.Item>
                 </Menu.SubMenu>
               )}
