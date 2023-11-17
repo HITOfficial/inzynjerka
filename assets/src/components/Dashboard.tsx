@@ -96,6 +96,9 @@ import CannedResponsesOverview from './canned-responses/CannedResponsesOverview'
 import ForwardingAddressSettings from './settings/ForwardingAddressSettings';
 import InboxesDashboard from './inboxes/InboxesDashboard';
 import Model from './model/Model';
+import ModelSettings from "./model/model-settings/ModelSettings";
+import QAndAPage from "./model/q-and-a/QAndAPage";
+import QuestionStatistics from "./model/question-statistics/QuestionStatistics";
 
 const {
   REACT_APP_ADMIN_ACCOUNT_ID = 'eb504736-0f20-4978-98ff-1a82ae60b266',
@@ -591,7 +594,9 @@ const Dashboard = (props: RouteComponentProps) => {
             path="/developers/_templates"
             component={EmailTemplateBuilder}
           />
-          <Route path="/model" component={Model} />
+          <Route exact path={`/model/model-settings`} component={ModelSettings} />
+          <Route exact path={`/model/q-and-a`} component={QAndAPage} />
+          <Route exact path={`/model/question-statistics`} component={QuestionStatistics} />
 
           <Route path="/functions/:id" component={LambdaDetailsPage} />
           <Route path="/functions" component={LambdasOverview} />

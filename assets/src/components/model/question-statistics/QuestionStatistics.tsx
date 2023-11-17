@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+gigit import React, {useRef, useEffect} from 'react';
 import {getAccessToken, MODEL_URL} from '../Model';
 
 const QuestionStatistics: React.FC = () => {

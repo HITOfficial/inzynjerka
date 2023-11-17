@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  useRouteMatch,
+  useLocation,
 } from 'react-router-dom';
 import ModelSettings from './model-settings/ModelSettings';
 import QAndAPage from './q-and-a/QAndAPage';
@@ -26,8 +26,6 @@ export const getAccessToken = (iframeRef: any) => {
 };
 
 const Model = () => {
-  let {path} = useRouteMatch();
-
   return (
     <Box
       sx={{
@@ -37,9 +35,9 @@ const Model = () => {
     >
       <Router>
         <Switch>
-          <Route path={`${path}/model-settings`} component={ModelSettings} />
-          <Route path={`${path}/q-and-a`} component={QAndAPage} />
-          <Route path={`${path}/question-statistics`} component={QuestionStatistics} />
+          <Route exactpath={`/model/model-settings`} component={ModelSettings} />
+          <Route exact path={`/model/q-and-a`} component={QAndAPage} />
+          <Route exact path={`/question-statistics`} component={QuestionStatistics} />
         </Switch>
       </Router>
     </Box>

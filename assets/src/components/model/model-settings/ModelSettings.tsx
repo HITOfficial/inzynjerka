@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect,useRef} from 'react';
 import {getAccessToken, MODEL_URL} from '../Model';
 
 const ModelSettings: React.FC = () => {
