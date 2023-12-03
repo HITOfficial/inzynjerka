@@ -1,8 +1,17 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {getAccessToken, MODEL_URL} from '../Model';
+
 
 const QuestionStatistics: React.FC = () => {
 	const iframeRef = useRef<HTMLIFrameElement | null>(null);
+	const [reload, setReload] = useState(false);
+
+	useEffect(() => {
+		if (!reload) {
+			setReload(true);
+		}
+	}, [reload]);
+
 
 	return (
 		<iframe

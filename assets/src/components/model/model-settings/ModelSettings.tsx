@@ -1,8 +1,16 @@
-import React, {useEffect,useRef} from 'react';
+import React, {useEffect,useRef, useState} from 'react';
 import {getAccessToken, MODEL_URL} from '../Model';
 
 const ModelSettings: React.FC = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    if (!reload) {
+      setReload(true);
+    }
+  }, [reload]);
 
   return (
     <iframe
