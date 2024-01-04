@@ -11,6 +11,10 @@ You can check out how our chat widget looks and play around with customizing it 
 _Watch how easy it is to get set up with our Slack integration 🚀 :_
 ![slack-setup](https://user-images.githubusercontent.com/4218509/88716918-a0583180-d0d4-11ea-93b3-12437ac51138.gif)
 
+## How to run
+
+Run command: docker-compose up --build
+
 ## One click Heroku deployment
 
 The fastest way to get started is one click deploy on Heroku with:
