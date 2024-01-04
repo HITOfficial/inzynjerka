@@ -13,7 +13,7 @@ _Watch how easy it is to get set up with our Slack integration 🚀 :_
 
 ## How to run
 
-Run command: docker-compose up --build
+Run command: 'docker-compose up --build' in the main directory.
 
 ## One click Heroku deployment
 
